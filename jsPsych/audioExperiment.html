@@ -22,6 +22,17 @@
   };
   timeline.push(welcome);
 
+  /* define instructions trial */
+  var instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>In this experiment, you will adjust a sound.</p>" +
+      "To make it more 'beepy' press and hold the letter B on the keyboard." +
+      "</p><p> To make it more 'beepy' press and hold the letter N " +
+      "on the keyboard.</p><p>Press any key to begin.</p>",
+      post_trial_gap: 2000
+    };
+    timeline.push(instructions);
+
   /* preload soundfile */
   var sound_trial = {
       type: 'audio-keyboard-response',
