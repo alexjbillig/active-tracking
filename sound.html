@@ -11,13 +11,17 @@
       <span>Play/Pause</span>
   </button>
 
+  <p>Audio settings:</p>
+  <div>
+  <input type="range" id="volume" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01"/>
+  <label for="volume">Volume</label>
+  </div>
+
 <script>
 
 // Get audio context
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
-
-
 
 // get the audio element
 const audioElement = document.querySelector('audio');
@@ -25,13 +29,22 @@ const audioElement = document.querySelector('audio');
 // pass it into the audio context
 const track = audioContext.createMediaElementSource(audioElement);
 
+// gainnode
+const gainNode = audioContext.createGain();
 
+const volumeControl = document.querySelector('#volume');
+
+volumeControl.addEventListener('input', function() {
+  gainNode.gainvalue = this.value;
+}, false);
 
 // connect to output
-track.connect(audioContext.destination);
+track.connect(gainNode).connect(audioContext.destination);
 
 // select our play button
 const playButton = document.querySelector('button');
+
+
 
 playButton.addEventListener('click', function() {
 
@@ -54,6 +67,8 @@ playButton.addEventListener('click', function() {
 audioElement.addEventListener('ended', () => {
     playButton.dataset.playing = 'false';
 }, false);
+
+
 
 </script>
 
