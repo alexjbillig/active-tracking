@@ -6,7 +6,12 @@
 <body>
 
   // Set audio source
-  <audio src = "DB.mp3">not working</audio>
+  <audio src = "DB.mp3"></audio>
+
+  // button for play/pause
+  <button data-playing="false" role="switch" aria-checked="false">
+      <span>Play/Pause</span>
+  </button>
 
 <script>
 
@@ -22,10 +27,7 @@ const audioElement = document.querySelector('audio');
 // pass it into the audio context
 const track = audioContext.createMediaElementSource(audioElement);
 
-// button for play/pause
-<button data-playing="false" role="switch" aria-checked="false">
-    <span>Play/Pause</span>
-</button>
+
 
 // connect to output
 track.connect(audioContext.destination);
