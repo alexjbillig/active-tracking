@@ -5,14 +5,16 @@
 </head>
 <body>
 
+  // Set audio source
+  <audio src = "DB.mp3">not working</audio>
+
 <script>
 
 // Get audio context
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 
-// Set audio source
-<audio src = "DB.mp3">not working</audio>
+
 
 // get the audio element
 const audioElement = document.querySelector('audio');
