@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tone experiment</title>
+</head>
+<body>
+<script>
+
+let synth = new Tone.DuoSynth( );
+Tone.Transport.setInterval(function(time) {
+synth.triggerAttackRelease(notes[noteIndex], “8n”, time);
+noteIndex = noteIndex + 1 % notes.length;
+}, “4n”);
+Tone.Transport.start();
+
+</script>
+</body>
+</html>
