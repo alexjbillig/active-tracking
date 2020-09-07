@@ -6,4 +6,6 @@ author_profile: true
 redirect_from:
 ---
 
-[Run experiment](audioExperiment2.html)
+[Noise](audioExperiment2.html)
+[Adjustable RegRand](sound.html)
+[Multi-track](multitrack.html)
