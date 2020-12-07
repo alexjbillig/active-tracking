@@ -75,15 +75,15 @@ const trackEls = document.querySelectorAll('li');
 console.log(trackEls);
 
 // switch aria attribute on click
-// allPadButtons.forEach(el => {
-//   el.addEventListener('click', () => {
-//     if (el.getAttribute('aria-checked') === 'false') {
-//       el.setAttribute('aria-checked', 'true');
-//     } else {
-//       el.setAttribute('aria-checked', 'false');
-//     }
-//   }, false)
-// })
+allPadButtons.forEach(el => {
+   el.addEventListener('click', () => {
+     if (el.getAttribute('aria-checked') === 'false') {
+       el.setAttribute('aria-checked', 'true');
+     } else {
+       el.setAttribute('aria-checked', 'false');
+     }
+   }, false)
+ })
 
 
 // Loading ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
