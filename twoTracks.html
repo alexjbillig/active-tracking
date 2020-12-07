@@ -7,8 +7,8 @@
 
 <body>
 
-<button id="loadbutton">Load</button>
-<button id="startbutton">Start</button>
+<button id="loadButton">Load</button>
+<button id="startButton">Start</button>
 
 <script type="text/javascript">
 
@@ -23,7 +23,7 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx = null;
 
 // startbutton
-const startButton = document.querySelector('#startbutton');
+const startButton = document.querySelector('#startButton');
 
 // function for fetching the audio file and decoding the data
 async function getFile(filepath) {
@@ -56,22 +56,35 @@ function playTrack(audioBuffer) {
   return trackSource;
 }
 
-loadbutton.addEventListener('click', () => {
+loadButton.addEventListener('click', () => {
   if (audioCtx != null) {
     return;
   }
 
   audioCtx = new AudioContext();
 
-  document.querySelector("#loadbutton").hidden = true;
+  document.querySelector("#loadButton").hidden = true;
 
   stimuli.forEach((thisStimulus, i) => {
 
     // load file
     track[i] = loadFile(thisStimulus)
   })
-
 });
+
+startButton.addEventListener('click', () => {
+
+    // check if context is in suspended state (autoplay policy)
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+
+    track.forEach((thisTrack, i) => {
+    playTrack(track);
+    })
+  })
+
+
 
 
 
