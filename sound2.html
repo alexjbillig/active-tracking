@@ -6,7 +6,6 @@
 <body>
 
   <audio src = "audio/1_001.wav"></audio>
-  <audio src = "audio/1_002.wav"></audio>
 
   <button aria-describedby="1_001" data-playing="false" role="switch" aria-checked="false">
       <span>Play/Pause</span>
@@ -18,9 +17,6 @@
   <label for="volume">Volume</label>
   </div>
 
-  <button aria-describedby="1_002" data-playing="false" role="switch" aria-checked="false">
-      <span>Play/Pause</span>
-  </button>
 
   <p>Audio settings:</p>
   <div>
@@ -35,7 +31,7 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 
 // get the audio element
-const audioElement = document.querySelectorAll('audio');
+const audioElement = document.querySelector('audio');
 
 // pass it into the audio context
 const track = audioContext.createMediaElementSource(audioElement);
