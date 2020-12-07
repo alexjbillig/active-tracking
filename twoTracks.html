@@ -53,6 +53,23 @@ function playTrack(audioBuffer) {
   return trackSource;
 }
 
+loadButton.addEventListener('click', () => {
+  if (audioCtx != null) {
+    return;
+  }
+
+  audioCtx = new AudioContext();
+
+  document.querySelector("#loadbutton").hidden = true;
+
+  stimuli.forEach((thisStimulus, i) => {
+
+    // load file
+    loadFile(thisStimulus)}
+
+  });
+
+
 
 </script>
 
