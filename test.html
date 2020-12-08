@@ -72,6 +72,10 @@
   var volumes = [];
   updateVolumes();
 
+  // initialise trackSource and gainnode
+  var trackSource = [];
+  var gainNode = [];
+
   // functions
 
   // function for fetching the audio file and decode the data
@@ -119,20 +123,6 @@
 
     return trackSource;
   }
-
-
-  // pass it into the audio context
-  //track[i] = audioContext.createMediaElementSource(audioList[i]);
-
-  // gainnode
-  //gainNode[i] = audioContext.createGain();
-
-  // connect to output
-  //track[i].connect(gainNode[i]).connect(audioContext.destination);
-
-
-
-
 
   // would like this to remain but be inaccesisble
   startButton.addEventListener('click', () => {
