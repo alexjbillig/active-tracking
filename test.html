@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<title>Desnity testing</title>
+<link href="jsPsych-master/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+<body>
+
+  <button onclick="decreaseDensity()">Decrease</button>
+  <button onclick="increaseDensity()">Increase</button>
+
+  <p id="densityDisplay"></p>
+  <p id="volumeDisplay"></p>
+
+
+  <script>
+
+  const numTracks = 10;
+  const maxVolume = 1;
+  const maxDensity = numTracks;
+  const minDensity = 0;
+
+  var currentDensity = 1;
+  document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
+
+  var volumes = [];
+  updateVolumes();
+  document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
+
+  function increaseDensity() {
+    currentDensity = Math.min(currentDensity + 1, maxDensity);
+    document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
+    updateVolumes();
+  }
+
+  function decreaseDensity() {
+    currentDensity = Math.max(currentDensity -1, minDensity);
+    document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
+    updateVolumes();
+  }
+
+  function updateVolumes() {
+    if (currentDensity == 0) {
+      for (i = 0; i < numTracks; i++) {
+        volumes[i] = 0;
+      }
+    }
+    else {
+      for (i = 0; i < currentDensity; i++) {
+        volumes[i] = maxVolume/currentDensity;
+      }
+      for (i = currentDensity; i < numTracks; i++){
+        volumes[i] = 0;
+      }
+    }
+    document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
+  };
+
+
+  </script>
+
+</body>
+</html>
