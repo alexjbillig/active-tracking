@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Desnity testing</title>
+<title>Density testing</title>
 <link href="jsPsych-master/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 <body>
 
@@ -14,35 +14,47 @@
 
   <script>
 
-  const numTracks = 10;
+  // track, volume, and density settings
+  const numTracks = 1;
   const maxVolume = 1;
   const maxDensity = numTracks;
   const minDensity = 0;
 
-  // Get audio context
+  // list of audio files
+  const audioList = ["audio/1_001.wav", "audio/1_002.wav"];
+
+  // get audio context
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   const audioContext = new AudioContext();
 
-  // get the audio element
-  const audioElement = document.querySelector('audio');
+  var track = [];
+  var gainNode = [];
 
-  // pass it into the audio context
-  const track = audioContext.createMediaElementSource(audioElement);
+  for (audioCount = 0; i < numTracks; i++) {
 
-  // gainnode
-  const gainNode = audioContext.createGain();
+    // pass it into the audio context
+    track[i] = audioContext.createMediaElementSource(audioList[i]);
 
-  // connect to output
-  track.connect(gainNode).connect(audioContext.destination);
+    // gainnode
+    gainNode[i] = audioContext.createGain();
 
+    // connect to output
+    track[i].connect(gainNode[i]).connect(audioContext.destination);
+
+  }
+
+  // initialise density
   var currentDensity = 1;
   document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
 
+  // initialise volumes
   var volumes = [];
   updateVolumes();
 
   // play
-  audioElement.play();
+  audioList[i].play();
+
+  // functions
 
   function increaseDensity() {
     currentDensity = Math.min(currentDensity + 1, maxDensity);
@@ -60,18 +72,21 @@
     if (currentDensity == 0) {
       for (i = 0; i < numTracks; i++) {
         volumes[i] = 0;
+        gainNode[i].gain.value = volumes[i];
       }
     }
     else {
       for (i = 0; i < currentDensity; i++) {
         volumes[i] = maxVolume/currentDensity;
+        gainNode[i].gain.value = volumes[i];
       }
       for (i = currentDensity; i < numTracks; i++){
         volumes[i] = 0;
+        gainNode[i].gain.value = volumes[i];
       }
     }
     document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
-    gainNode.gain.value = volumes[0];
+
   };
 
   </script>
