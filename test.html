@@ -6,7 +6,10 @@
 
   <audio src = "audio/1_001.wav"></audio>
 
-  <button data-playing="false" onclick="startStop()">Start</button>
+  <button data-playing="false" aria-describedby="play-label" class="playbutton">
+    <span id="play-label">Play</span>
+  </button>
+
   <button onclick="decreaseDensity()">Decrease</button>
   <button onclick="increaseDensity()">Increase</button>
 
@@ -16,7 +19,7 @@
   <script>
 
   // track, volume, and density settings
-  const numTracks = 2;
+  const numTracks = 1;
   const maxVolume = 1;
   const maxDensity = numTracks;
   const minDensity = 0;
@@ -73,20 +76,14 @@
 
   // functions
 
-  function startStop() {
+  function start() {
     // check if context is in suspended state (autoplay policy)
     if (audioContext.state === 'suspended') {
         audioContext.resume();
     }
 
-    // play or pause track depending on state
-    if (this.dataset.playing === 'false') {
-        audioElement.play();
-        this.dataset.playing = 'true';
-    } else if (this.dataset.playing === 'true') {
-        audioElement.pause();
-        this.dataset.playing = 'false';
-    }
+    audioElement.play();
+
   }
 
   function increaseDensity() {
