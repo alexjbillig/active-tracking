@@ -6,7 +6,7 @@
 
   <audio src = "audio/1_001.wav"></audio>
 
-  <button onclick="startStop()">Start</button>
+  <button data-playing="false" onclick="startStop()">Start</button>
   <button onclick="decreaseDensity()">Decrease</button>
   <button onclick="increaseDensity()">Increase</button>
 
@@ -22,7 +22,7 @@
   const minDensity = 0;
 
   // list of audio files
-  const audioList = ["audio/1_001.wav", "audio/1_002.wav"];
+  //const audioList = ["audio/1_001.wav", "audio/1_002.wav"];
 
   // get audio context
   const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -31,16 +31,41 @@
   var track = [];
   var gainNode = [];
 
-  for (i = 0; i < numTracks; i++) {
+
+
+
+  // get the audio element
+  const audioElement = document.querySelector('audio');
+
+  // pass it into the audio context
+  const track = audioContext.createMediaElementSource(audioElement);
+
+  // gainnode
+  const gainNode = audioContext.createGain();
+
+  const volumeControl = document.querySelector('#volume');
+
+  volumeControl.addEventListener('input', function() {
+    gainNode.gain.value = this.value;
+  }, false);
+
+  // connect to output
+  track.connect(gainNode).connect(audioContext.destination);
+
+  // connect to output
+  //track.connect(gainNode).connect(audioContext.destination);
+
+
+  //for (i = 0; i < numTracks; i++) {
 
     // pass it into the audio context
-    track[i] = audioContext.createMediaElementSource(audioList[i]);
+    //track[i] = audioContext.createMediaElementSource(audioList[i]);
 
     // gainnode
-    gainNode[i] = audioContext.createGain();
+    //gainNode[i] = audioContext.createGain();
 
     // connect to output
-    track[i].connect(gainNode[i]).connect(audioContext.destination);
+    //track[i].connect(gainNode[i]).connect(audioContext.destination);
 
   }
 
@@ -53,9 +78,25 @@
   updateVolumes();
 
   // play
-  audioList[i].play();
+  //audioList[i].play();
 
   // functions
+
+  function startStop() {
+    // check if context is in suspended state (autoplay policy)
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+
+    // play or pause track depending on state
+    if (this.dataset.playing === 'false') {
+        audioElement.play();
+        this.dataset.playing = 'true';
+    } else if (this.dataset.playing === 'true') {
+        audioElement.pause();
+        this.dataset.playing = 'false';
+    }
+  }
 
   function increaseDensity() {
     currentDensity = Math.min(currentDensity + 1, maxDensity);
