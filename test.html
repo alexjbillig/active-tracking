@@ -24,7 +24,7 @@
 
   var volumes = [];
   updateVolumes();
-  document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
+
 
   // Get audio context
   const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -73,6 +73,7 @@
       }
     }
     document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
+    gainNode.gain.value = volumes[0];
   };
 
   </script>
