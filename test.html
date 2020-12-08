@@ -72,9 +72,6 @@
   var volumes = [];
   updateVolumes();
 
-  // play
-  //audioList[i].play();
-
   // functions
 
   // function for fetching the audio file and decode the data
@@ -95,11 +92,14 @@
   // create a buffer, plop in data, connect and play
   // should be able to set this to delay a bit so that function can be called
   // multiple times before sound needs to start
-  // also need to add the gain node / volume manipulation
+  // also need to add the gain node / volume manipulation - can I still do this
+  // when the buffers/sources are within the playTrack function?
   function playTrack(audioBuffer) {
     const trackSource = audioCtx.createBufferSource();
     trackSource.buffer = audioBuffer;
-    trackSource.connect(audioCtx.destination)
+    gainNode = audioCtx.createGain();
+    //trackSource.connect(audioCtx.destination)
+    trackSource.connect(gainNode).connect(audioCtx.destination)
 
     if (offset == 0) {
       trackSource.start();
@@ -110,6 +110,20 @@
 
     return trackSource;
   }
+
+
+  // pass it into the audio context
+  //track[i] = audioContext.createMediaElementSource(audioList[i]);
+
+  // gainnode
+  //gainNode[i] = audioContext.createGain();
+
+  // connect to output
+  //track[i].connect(gainNode[i]).connect(audioContext.destination);
+
+
+
+
 
   // would like this to remain but be inaccesisble
   startButton.addEventListener('click', () => {
