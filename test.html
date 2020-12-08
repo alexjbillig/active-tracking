@@ -18,7 +18,7 @@
   const startButton = document.querySelector('#startButton')
 
   // track, volume, and density settings
-  const numTracks = 1;
+  const numTracks = 2;
   const maxVolume = 1;
   const maxDensity = numTracks;
   const minDensity = 0;
@@ -111,6 +111,7 @@
     return trackSource;
   }
 
+  // would like this to remain but be inaccesisble
   startButton.addEventListener('click', () => {
     if (audioCtx != null) {
       return;
