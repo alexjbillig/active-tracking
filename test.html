@@ -78,6 +78,7 @@
     trackSource[i] = audioCtx.createBufferSource();
     trackSource[i].buffer = audioBuffer;
     gainNode[i] = audioCtx.createGain();
+    gainNode[i].gain.value = volumes[i];
     trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
 
     if (offset == 0) {
