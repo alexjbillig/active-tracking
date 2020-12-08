@@ -30,40 +30,6 @@
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   let audioCtx = null;
 
-  // const audioContext = new AudioContext();
-
-  //var track = [];
-  //var gainNode = [];
-
-  // get the audio element
-  // const audioElement = document.querySelector('audio');
-
-  // pass it into the audio context
-  // const track = audioContext.createMediaElementSource(audioElement);
-
-  // gainnode
-  // const gainNode = audioContext.createGain();
-
-  // connect to output
-  // track.connect(gainNode).connect(audioContext.destination);
-
-  // connect to output
-  //track.connect(gainNode).connect(audioContext.destination);
-
-
-  //for (i = 0; i < numTracks; i++) {
-
-  // pass it into the audio context
-  //track[i] = audioContext.createMediaElementSource(audioList[i]);
-
-  // gainnode
-  //gainNode[i] = audioContext.createGain();
-
-  // connect to output
-  //track[i].connect(gainNode[i]).connect(audioContext.destination);
-
-  // }
-
   // initialise density
   var currentDensity = 1;
   document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
@@ -170,19 +136,19 @@
       for (i = 0; i < numTracks; i++) {
         volumes[i] = 0;
         //gainNode.gain.value = volumes[0];
-        //gainNode[i].gain.value = volumes[i];
+        gainNode[i].gain.value = volumes[i];
       }
     }
     else {
       for (i = 0; i < currentDensity; i++) {
         volumes[i] = maxVolume/currentDensity;
         //gainNode.gain.value = volumes[0];
-        //gainNode[i].gain.value = volumes[i];
+        gainNode[i].gain.value = volumes[i];
       }
       for (i = currentDensity; i < numTracks; i++){
         volumes[i] = 0;
         //gainNode.gain.value = volumes[0];
-        //gainNode[i].gain.value = volumes[i];
+        gainNode[i].gain.value = volumes[i];
       }
     }
     document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
