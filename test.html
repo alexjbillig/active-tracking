@@ -14,17 +14,23 @@
 
   <script>
 
+  // adjustments currently generate clicks. might be different when sounds are
+  // slower, as they are for active tracking. but if not, adjustments should
+  // apply during the silent 10-ms periods
+
+  // list of audio files
+  const audioList = ["audio/1_001.wav", "audio/1_002.wav", "audio/1_003.wav",
+  "audio/1_004.wav", "audio/1_005.wav", "audio/1_006.wav", "audio/1_007.wav",
+  "audio/1_008.wav", "audio/1_009.wav", "audio/1_010.wav"];
+
   // get start button
   const startButton = document.querySelector('#startButton')
 
   // track, volume, and density settings
-  const numTracks = 2;
+  const numTracks = audioList.length;
   const maxVolume = 1;
   const maxDensity = numTracks;
   const minDensity = 0;
-
-  // list of audio files
-  const audioList = ["audio/1_001.wav", "audio/1_002.wav"];
 
   // get audio context
   const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -70,21 +76,15 @@
   function playTrack(audioBuffer, i) {
   //function playTrack(audioBuffer) {
     trackSource[i] = audioCtx.createBufferSource();
-    // const trackSource = audioCtx.createBufferSource();
     trackSource[i].buffer = audioBuffer;
-    //trackSource.buffer = audioBuffer;
     gainNode[i] = audioCtx.createGain();
-    //gainNode = audioCtx.createGain();
     trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
-    //trackSource.connect(gainNode).connect(audioCtx.destination)
 
     if (offset == 0) {
       trackSource[i].start();
-      //trackSource.start();
       offset = audioCtx.currentTime;
     } else {
       trackSource[i].start(0, audioCtx.currentTime - offset);
-      //trackSource.start(0, audioCtx.currentTime - offset);
     }
 
     return trackSource;
