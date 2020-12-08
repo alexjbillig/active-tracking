@@ -29,8 +29,8 @@
 
   var track = [];
   var gainNode = [];
-  
-  for (audioCount = 0; audioCount < numTracks; audioCount++) {
+
+  for (i = 0; i < numTracks; i++) {
 
     // pass it into the audio context
     track[i] = audioContext.createMediaElementSource(audioList[i]);
