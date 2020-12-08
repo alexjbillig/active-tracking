@@ -105,17 +105,20 @@
     if (currentDensity == 0) {
       for (i = 0; i < numTracks; i++) {
         volumes[i] = 0;
-        gainNode[i].gain.value = volumes[i];
+        gainNode.gain.value = volumes[0];
+        //gainNode[i].gain.value = volumes[i];
       }
     }
     else {
       for (i = 0; i < currentDensity; i++) {
         volumes[i] = maxVolume/currentDensity;
-        gainNode[i].gain.value = volumes[i];
+        gainNode.gain.value = volumes[0];
+        //gainNode[i].gain.value = volumes[i];
       }
       for (i = currentDensity; i < numTracks; i++){
         volumes[i] = 0;
-        gainNode[i].gain.value = volumes[i];
+        gainNode.gain.value = volumes[0];
+        //gainNode[i].gain.value = volumes[i];
       }
     }
     document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
