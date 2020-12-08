@@ -123,36 +123,37 @@
     currentDensity = Math.min(currentDensity + 1, maxDensity);
     document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
     updateVolumes();
+    updateGainNodes();
   }
 
   function decreaseDensity() {
     currentDensity = Math.max(currentDensity -1, minDensity);
     document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
     updateVolumes();
+    updateGainNodes();
   }
 
   function updateVolumes() {
     if (currentDensity == 0) {
       for (i = 0; i < numTracks; i++) {
         volumes[i] = 0;
-        //gainNode.gain.value = volumes[0];
-        gainNode[i].gain.value = volumes[i];
       }
     }
     else {
       for (i = 0; i < currentDensity; i++) {
         volumes[i] = maxVolume/currentDensity;
-        //gainNode.gain.value = volumes[0];
-        gainNode[i].gain.value = volumes[i];
       }
       for (i = currentDensity; i < numTracks; i++){
         volumes[i] = 0;
-        //gainNode.gain.value = volumes[0];
-        gainNode[i].gain.value = volumes[i];
       }
     }
     document.getElementById('volumeDisplay').innerHTML = "Volumes: " + volumes;
+  };
 
+  function updateGainNodes() {
+    for (i = 0; i < numTracks; i++) {
+      gainNode[i].gain.value = volumes[i];
+    }
   };
 
   </script>
