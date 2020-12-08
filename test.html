@@ -94,18 +94,27 @@
   // multiple times before sound needs to start
   // also need to add the gain node / volume manipulation - can I still do this
   // when the buffers/sources are within the playTrack function?
-  function playTrack(audioBuffer) {
-    const trackSource = audioCtx.createBufferSource();
-    trackSource.buffer = audioBuffer;
-    gainNode = audioCtx.createGain();
-    //trackSource.connect(audioCtx.destination)
-    trackSource.connect(gainNode).connect(audioCtx.destination)
+  // allow to be called with track number, so will change trackSource into e.g.
+  // an array
+
+  function playTrack(audioBuffer, i) {
+  //function playTrack(audioBuffer) {
+    trackSource[i] = audioCtx.createBufferSource();
+    // const trackSource = audioCtx.createBufferSource();
+    trackSource[i].buffer = audioBuffer;
+    //trackSource.buffer = audioBuffer;
+    gainNode[i] = audioCtx.createGain();
+    //gainNode = audioCtx.createGain();
+    trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
+    //trackSource.connect(gainNode).connect(audioCtx.destination)
 
     if (offset == 0) {
-      trackSource.start();
+      trackSource[i].start();
+      //trackSource.start();
       offset = audioCtx.currentTime;
     } else {
-      trackSource.start(0, audioCtx.currentTime - offset);
+      trackSource[i].start(0, audioCtx.currentTime - offset);
+      //trackSource.start(0, audioCtx.currentTime - offset);
     }
 
     return trackSource;
@@ -148,7 +157,7 @@
         }
 
         // play track
-        playTrack(track);
+        playTrack(track, i);
 
       })
     })
