@@ -89,7 +89,7 @@
     trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
     //if (offset == 0) {
     if (playing == 0) {
-      startTime = audio.Ctx.currentTime + startDelaySecs;
+      startTime = audioCtx.currentTime + startDelaySecs;
       playing = 1;
       //offset = audioCtx.currentTime;
     }
