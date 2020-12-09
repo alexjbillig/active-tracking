@@ -137,7 +137,8 @@
     // hide start button
     // document.querySelector("#startButton").hidden = true;
     // iterate through audio files
-    audioListShuffled = shuffleArray(audioList)
+    var audioListShuffled = audioList
+    shuffleArray(audioListShuffled)
     audioListShuffled.forEach((element, i) => {
       // load file
       loadFile(element).then((track) => {
