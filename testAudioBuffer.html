@@ -37,20 +37,27 @@
   // destination so we can hear the sound
   source.connect(audioCtx.destination);
 
+  var playing = 0; []
+  var startTime = [];
 
   function start() {
     // start the source playing
     source.start();
-    const startTime = audioCtx.currentTime;
-    for (var channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
-      var nowBuffering = myArrayBuffer.getChannelData(channel);
-      for (var i = 48000; i < myArrayBuffer.length; i++) {
-        // Math.random() is in [0; 1.0]
-        // audio needs to be in [-1.0; 1.0]
-        nowBuffering[i] = 0;
-      }
+    playing = 1;
+    startTime = audioCtx.currentTime;
+  }
+
+  if (playing == 1){
+  for (var channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
+    var nowBuffering = myArrayBuffer.getChannelData(channel);
+    for (var i = 48000; i < myArrayBuffer.length; i++) {
+      // Math.random() is in [0; 1.0]
+      // audio needs to be in [-1.0; 1.0]
+      nowBuffering[i] = 0;
     }
   }
+}
+
 
   </script>
 
