@@ -88,9 +88,9 @@
     if (playing == 0) {
       startTime = audioCtx.currentTime + startDelaySecs;
       playing = 1;
-      //trackSource[i].onended = function () {
-        //playing = 0;
-      //}
+      trackSource[i].onended = function () {
+        playing = 0;
+      }
     }
     trackSource[i].start(startTime);
     return trackSource;
