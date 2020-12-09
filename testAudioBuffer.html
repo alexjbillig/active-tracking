@@ -32,6 +32,7 @@
     var source = audioCtx.createBufferSource();
 
     // set the buffer in the AudioBufferSourceNode
+    source.loop = true
     source.buffer = myArrayBuffer;
 
     // connect the AudioBufferSourceNode to the
