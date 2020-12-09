@@ -123,14 +123,18 @@
     currentDensity = Math.min(currentDensity + 1, maxDensity);
     document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
     updateVolumes();
+    if (playing == 1) {
     updateGainNodes();
+    }
   }
 
   function decreaseDensity() {
     currentDensity = Math.max(currentDensity -1, minDensity);
     document.getElementById('densityDisplay').innerHTML = "Density: " + currentDensity;
     updateVolumes();
+    if (playing == 1) {
     updateGainNodes();
+    }
   }
 
   function updateVolumes() {
