@@ -28,6 +28,9 @@
   // slower, as they are for active tracking. But if not, adjustments should
   // apply during the silent 10-ms periods
 
+  // Could shuffle the order of elements in audioList for different overall
+  // stimuli
+
   // During development should be able to specify/select sound files from site
 
   // list of audio files
@@ -35,33 +38,30 @@
   // "audio/1_004.wav", "audio/1_005.wav", "audio/1_006.wav", "audio/1_007.wav",
   // "audio/1_008.wav", "audio/1_009.wav", "audio/1_010.wav"];
   //const audioList = [
-  //"audio/activeTracking_set001_track001.wav",
-  //"audio/activeTracking_set001_track002.wav",
-  //"audio/activeTracking_set001_track003.wav",
-  //"audio/activeTracking_set001_track004.wav",
-  //"audio/activeTracking_set001_track005.wav",
-  //"audio/activeTracking_set001_track006.wav",
-  //"audio/activeTracking_set001_track007.wav",
-  //"audio/activeTracking_set001_track008.wav",
-  //"audio/activeTracking_set001_track009.wav",
-  //"audio/activeTracking_set001_track010.wav"];
-  const audioList = [
-  "audio/activeTracking_set001_track001.flac",
-  "audio/activeTracking_set001_track002.flac",
-  "audio/activeTracking_set001_track003.flac",
-  "audio/activeTracking_set001_track004.flac",
-  "audio/activeTracking_set001_track005.flac",
-  "audio/activeTracking_set001_track006.flac",
-  "audio/activeTracking_set001_track007.flac",
-  "audio/activeTracking_set001_track008.flac",
-  "audio/activeTracking_set001_track009.flac",
-  "audio/activeTracking_set001_track010.flac"];
+  //"audio/activeTracking_set001_track001.flac",
+  //"audio/activeTracking_set001_track002.flac",
+  //"audio/activeTracking_set001_track003.flac",
+  //"audio/activeTracking_set001_track004.flac",
+  //"audio/activeTracking_set001_track005.flac",
+  //"audio/activeTracking_set001_track006.flac",
+  //"audio/activeTracking_set001_track007.flac",
+  //"audio/activeTracking_set001_track008.flac",
+  //"audio/activeTracking_set001_track009.flac",
+  //"audio/activeTracking_set001_track010.flac"];
+
+  const audioFilenameStart = "audio/activeTracking_set001_";
+  const audioFilenameEnd = ".flac"
+  const numTracks = 180;
+  for (i = 0; i < numTracks; i++) {
+    indexString = i.toString;
+    audioList[i] = audioFilenameStart + indexString.padStart(3, '0') + audioFilenameEnd;
+  }
 
   // get start button
   const startButton = document.querySelector('#startButton')
 
   // track, volume, and density settings
-  const numTracks = audioList.length;
+  //const numTracks = audioList.length;
   const maxVolume = 1;
   const maxDensity = numTracks;
   const minDensity = 0;
