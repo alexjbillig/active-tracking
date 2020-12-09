@@ -52,6 +52,7 @@
   const audioFilenameStart = "audio/activeTracking_set001_";
   const audioFilenameEnd = ".flac"
   const numTracks = 180;
+  var audioList = [];
   for (i = 0; i < numTracks; i++) {
     indexString = i.toString;
     audioList[i] = audioFilenameStart + indexString.padStart(3, '0') + audioFilenameEnd;
