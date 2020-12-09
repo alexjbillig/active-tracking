@@ -90,6 +90,7 @@
       playing = 1;
       trackSource[i].onended = function () {
         playing = 0;
+        audioCtx = null;
       }
     }
     trackSource[i].start(startTime);
