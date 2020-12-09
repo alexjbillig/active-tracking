@@ -41,6 +41,7 @@
   function start() {
     // start the source playing
     source.start();
+    const startTime = audioCtx.currentTime;
     for (var channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
       var nowBuffering = myArrayBuffer.getChannelData(channel);
       for (var i = 48000; i < myArrayBuffer.length; i++) {
