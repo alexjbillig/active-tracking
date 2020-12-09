@@ -30,13 +30,18 @@
   // high frequency siren-like sound. This could relate to th asynchrony, which
   // in fact seems to occur only for densities between 21-25 (91-180 tracks).
   // Does this become less of an issue with an even greater startDelaySecs?
-  // Problem went a way with 5s. But still have laser-type noise at the top.
+  // Problem went away with 4s. But still have laser-type noise at the top.
   // And perhaps different systems will differ in what they are able to handle.
+  // Remembered previously having something similar which eventually fixed,
+  // see email including text "Except for the LASER" from 2017.
   // Can I use the offset approach to make sure that if late starting it at
   // least starts at the right time?
 
   // Also lower pitched sounds seem louder - do I need to normalise from sound
   // to sound in MATLAB first?
+
+  // Not sure whether audioListShuffled has worked as intended - have I just
+  // changed audioList?
 
   // Adjustments currently generate clicks. Might be different when sounds are
   // slower, as they are for active tracking. But if not, adjustments should
