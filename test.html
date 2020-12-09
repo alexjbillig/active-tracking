@@ -54,7 +54,7 @@
   const numTracks = 180;
   var audioList = [];
   for (i = 0; i < numTracks; i++) {
-    indexString = i.toString();
+    indexString = (i + 1).toString();
     audioList[i] = audioFilenameStart + indexString.padStart(3, '0') + audioFilenameEnd;
   }
 
