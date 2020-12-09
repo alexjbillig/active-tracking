@@ -13,6 +13,13 @@
 
   <script>
 
+  // 9th December 2020, A. Billig. Current implementation plays multiple tracks
+  // at once, with density (which can be adjusted using clicks) determining the
+  // volume/gain applied to each track. When density is n, the first n tracks
+  // have a gain of maxVolume/n, the remainder have a gain of zero. As each
+  // track is monophonic, density is equal to the number of simultaneous notes.
+  // In the offline realisation, density is related but not equal to this.
+
   // should only allow density changes once sounds have started
 
   // adjustments currently generate clicks. might be different when sounds are
