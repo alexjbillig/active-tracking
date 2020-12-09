@@ -11,8 +11,6 @@
   <p id="densityLevelDisplay"></p>
   <p id="currentTracksDisplay"></p>
 
-<button onclick="window.open('https://youtu.be/ZhfB5kbvI10')">Instructions
-
   <script>
 
   // 9th December 2020, A. Billig. Current implementation plays multiple tracks
@@ -35,7 +33,8 @@
   // Problem went away with 4s. But still have laser-type noise at the top.
   // And perhaps different systems will differ in what they are able to handle.
   // Remembered previously having something similar which eventually fixed,
-  // see email including text "Except for the LASER" from 2017.
+  // see email including text "Except for the LASER" from 2017. Perhaps need
+  // random phase?
   // Can I use the offset approach to make sure that if late starting it at
   // least starts at the right time?
 
@@ -48,9 +47,6 @@
   // Adjustments currently generate clicks. Might be different when sounds are
   // slower, as they are for active tracking. But if not, adjustments should
   // apply during the silent 10-ms periods
-
-  // Could shuffle the order of elements in audioList for different overall
-  // stimuli
 
   // During development should be able to specify/select sound files from site
 
