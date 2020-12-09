@@ -26,6 +26,8 @@
   //"audio/1_004.wav", "audio/1_005.wav", "audio/1_006.wav", "audio/1_007.wav",
   //"audio/1_008.wav", "audio/1_009.wav", "audio/1_010.wav"];
 
+  // freqs will be allocated across tracks by segment
+
   const audioList = ["audio/1_001.wav", "audio/1_01norm.wav"];
 
   // get start button
@@ -53,8 +55,6 @@
   var trackSource = [];
   var gainNode = [];
 
-  // functions
-
   // function for fetching the audio file and decode the data
   async function getFile(filepath) {
     const response = await fetch(filepath);
@@ -73,11 +73,6 @@
   // create a buffer, plop in data, connect and play
   // should be able to set this to delay a bit so that function can be called
   // multiple times before sound needs to start
-  // also need to add the gain node / volume manipulation - can I still do this
-  // when the buffers/sources are within the playTrack function?
-  // allow to be called with track number, so will change trackSource into e.g.
-  // an array
-
   function playTrack(audioBuffer, i) {
   //function playTrack(audioBuffer) {
     trackSource[i] = audioCtx.createBufferSource();
