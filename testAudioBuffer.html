@@ -4,7 +4,11 @@
 <link href="jsPsych-master/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 <body>
 
+  <button id="startButton" onclick="start()">Start</button>
+
   <script>
+
+  function start() {
 
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -36,6 +40,8 @@
 
     // start the source playing
     source.start();
+
+  }
 
   </script>
 
