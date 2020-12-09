@@ -29,8 +29,10 @@
   // scaled down. Some of the higher densities seem to include a prominent
   // high frequency siren-like sound. This could relate to th asynchrony, which
   // in fact seems to occur only for densities between 21-25 (91-180 tracks).
-  // Does this become less of an issue with an even greater startDelaySecs? Or
-  // can I use the offset approach to make sure that if late starting it at
+  // Does this become less of an issue with an even greater startDelaySecs?
+  // Problem went a way with 5s. But still have laser-type noise at the top.
+  // And perhaps different systems will differ in what they are able to handle.
+  // Can I use the offset approach to make sure that if late starting it at
   // least starts at the right time?
 
   // Also lower pitched sounds seem louder - do I need to normalise from sound
@@ -135,7 +137,8 @@
     // hide start button
     // document.querySelector("#startButton").hidden = true;
     // iterate through audio files
-    audioList.forEach((element, i) => {
+    audioListShuffled = shuffleArray(audioList)
+    audioListShuffled.forEach((element, i) => {
       // load file
       loadFile(element).then((track) => {
         // check if context is in suspended state (autoplay policy)
@@ -183,6 +186,13 @@
       gainNode[i].gain.value = volumes[i];
     }
   };
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
   </script>
 
