@@ -76,8 +76,6 @@
     return track;
   }
 
-  // let offset = 0;
-
   // create a buffer, plop in data, connect and play
   // should be able to set this to delay a bit so that function can be called
   // multiple times before sound needs to start
@@ -87,15 +85,13 @@
     gainNode[i] = audioCtx.createGain();
     gainNode[i].gain.value = volumes[i];
     trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
-    //if (offset == 0) {
     if (playing == 0) {
       startTime = audioCtx.currentTime + startDelaySecs;
       playing = 1;
-      //offset = audioCtx.currentTime;
+      //trackSource[i].onended = function () {
+        //playing = 0;
+      //}
     }
-    //else {
-      //trackSource[i].start(0, audioCtx.currentTime - offset);
-    //}
     trackSource[i].start(startTime);
     return trackSource;
   }
@@ -107,7 +103,7 @@
     }
     audioCtx = new AudioContext();
     // hide start button
-    document.querySelector("#startButton").hidden = true;
+    // document.querySelector("#startButton").hidden = true;
     // iterate through audio files
     audioList.forEach((element, i) => {
       // load file
