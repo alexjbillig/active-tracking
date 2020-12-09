@@ -20,20 +20,32 @@
   // track is monophonic, density is equal to the number of simultaneous notes.
   // In the offline realisation, density is related but not equal to this.
 
-  // should only allow density changes once sounds have started
+  // Will all systems cope with this number (180) of tracks, or allow
+  // sufficiently granular gain adjustments? If not can create the sounds in
+  // javascript, see audioExperiment2.html for example with noise
 
-  // adjustments currently generate clicks. might be different when sounds are
-  // slower, as they are for active tracking. but if not, adjustments should
+  // Adjustments currently generate clicks. Might be different when sounds are
+  // slower, as they are for active tracking. But if not, adjustments should
   // apply during the silent 10-ms periods
 
-  // during development should be able to specify/select sound files from site
-
-  // freqs will be allocated across tracks by segment
+  // During development should be able to specify/select sound files from site
 
   // list of audio files
-  const audioList = ["audio/1_001.wav", "audio/1_002.wav", "audio/1_003.wav",
-  "audio/1_004.wav", "audio/1_005.wav", "audio/1_006.wav", "audio/1_007.wav",
-  "audio/1_008.wav", "audio/1_009.wav", "audio/1_010.wav"];
+  // const audioList = ["audio/1_001.wav", "audio/1_002.wav", "audio/1_003.wav",
+  // "audio/1_004.wav", "audio/1_005.wav", "audio/1_006.wav", "audio/1_007.wav",
+  // "audio/1_008.wav", "audio/1_009.wav", "audio/1_010.wav"];
+  const audioList = [
+  "audio/activeTracking_set001_track001.wav",
+  "audio/activeTracking_set001_track002.wav",
+  "audio/activeTracking_set001_track003.wav",
+  "audio/activeTracking_set001_track004.wav",
+  "audio/activeTracking_set001_track005.wav",
+  "audio/activeTracking_set001_track006.wav",
+  "audio/activeTracking_set001_track007.wav",
+  "audio/activeTracking_set001_track008.wav",
+  "audio/activeTracking_set001_track009.wav",
+  "audio/activeTracking_set001_track010.wav"];
+
 
   // get start button
   const startButton = document.querySelector('#startButton')
