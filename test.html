@@ -21,14 +21,12 @@
 
   // during development should be able to specify/select sound files from site
 
-  // list of audio files
-  //const audioList = ["audio/1_001.wav", "audio/1_002.wav", "audio/1_003.wav",
-  //"audio/1_004.wav", "audio/1_005.wav", "audio/1_006.wav", "audio/1_007.wav",
-  //"audio/1_008.wav", "audio/1_009.wav", "audio/1_010.wav"];
-
   // freqs will be allocated across tracks by segment
 
-  const audioList = ["audio/1_001.wav", "audio/1_01norm.wav"];
+  // list of audio files
+  const audioList = ["audio/1_001.wav", "audio/1_002.wav", "audio/1_003.wav",
+  "audio/1_004.wav", "audio/1_005.wav", "audio/1_006.wav", "audio/1_007.wav",
+  "audio/1_008.wav", "audio/1_009.wav", "audio/1_010.wav"];
 
   // get start button
   const startButton = document.querySelector('#startButton')
@@ -74,20 +72,17 @@
   // should be able to set this to delay a bit so that function can be called
   // multiple times before sound needs to start
   function playTrack(audioBuffer, i) {
-  //function playTrack(audioBuffer) {
     trackSource[i] = audioCtx.createBufferSource();
     trackSource[i].buffer = audioBuffer;
     gainNode[i] = audioCtx.createGain();
     gainNode[i].gain.value = volumes[i];
     trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
-
     if (offset == 0) {
       trackSource[i].start();
       offset = audioCtx.currentTime;
     } else {
       trackSource[i].start(0, audioCtx.currentTime - offset);
     }
-
     return trackSource;
   }
 
@@ -96,26 +91,19 @@
     if (audioCtx != null) {
       return;
     }
-
     audioCtx = new AudioContext();
-
     // hide start button
     document.querySelector("#startButton").hidden = true;
-
     // iterate through audio files
     audioList.forEach((element, i) => {
-
       // load file
       loadFile(element).then((track) => {
-
         // check if context is in suspended state (autoplay policy)
         if (audioCtx.state === 'suspended') {
           audioCtx.resume();
         }
-
         // play track
         playTrack(track, i);
-
       })
     })
   });
