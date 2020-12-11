@@ -16,12 +16,18 @@
     //    data = await response.json();
     //    return data
     //  }
-
+    
     var thisArray = [];
     for (i = 0; i < 10; i++) {
-      response = fetch("test.json")
-      data = response.json()
-      thisArray = thisArray.concat(data)
+      getFile("test.json").then((data) => {
+        thisArray = thisArray.concat(data)
+      })
+    }
+
+    async function getFile(filepath) {
+      response = await fetch(filepath);
+      data = await response.json();
+      return data
     }
 
   </script>
