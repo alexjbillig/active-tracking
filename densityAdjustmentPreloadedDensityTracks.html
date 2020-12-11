@@ -23,9 +23,8 @@
   const numLevels = 25;
   const numBursts = 40;
   const burstPlusSilenceDurSecs = 0.2;
-  const sampleRate = 48000;
   const instance = 1; // This will change in due course, with one available per trial
-  const startDelaySecs = 3;
+  const startDelaySecs = 1;
   const bestAdjustTimeReBurstStartSecs = .195;
   const gainAdjustBufferSecs = .010; // If less than this remaining until next nominal gain adjustment time, skip to the next one
 
@@ -136,10 +135,10 @@
 
   function updateGainNodes() {
     if (audioCtx.currentTime%burstPlusSilenceDurSecs < (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs)) {
-      adjustmentTime = Math.floor(audioCtx.currentTime / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs
+      adjustmentTime = Math.floor((audioCtx.currentTime - startTime) / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs + startTime
     }
     else {
-      adjustmentTime = Math.floor(audioCtx.currentTime / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs
+      adjustmentTime = Math.floor((audioCtx.currentTime - startTime) / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs + startTime
     }
     console.log(audioCtx.currentTime + " " + adjustmentTime)
     for (i = 0; i < numLevels; i++) {
