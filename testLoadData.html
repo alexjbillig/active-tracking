@@ -5,21 +5,11 @@
 
   <script>
 
-    //  var temp;
-    //  i = 0;
-    //  getFile("test.json").then((data, i) => {
-    //    temp = data;
-    //  });
 
-    //  async function getFile(filepath) {
-    //    response = await fetch(filepath);
-    //    data = await response.json();
-    //    return data
-    //  }
-    
+fileList = ["test.json","test.json","test.json","test.json","test.json","test.json","test.json","test.json","test.json","egg.json"]
     var thisArray = [];
     for (i = 0; i < 10; i++) {
-      getFile("test.json").then((data) => {
+      getFile(fileList[i]).then((data) => {
         thisArray = thisArray.concat(data)
       })
     }
