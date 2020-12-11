@@ -16,8 +16,8 @@
 
 
     var allAudioData = [];
+    var thisLevelAudioData = [];
     for (i = 0; i < numLevels; i++) {
-      var thisLevelAudioData = [];
       levelString = (i + 1).toString();
       for (j = 0; j < numBursts; j++) {
         burstString = (j + 1).toString();
@@ -29,6 +29,7 @@
         })
       }
       allAudioData[i] = thisLevelAudioData;
+      thisLevelAudioData = [];
     }
 
     async function getFile(filepath) {
