@@ -5,9 +5,11 @@
 
   <script>
 
-var myArray = [];
+    var FileReader = require('filereader')
+    fileReader = new FileReader()
 
-    myArray = FileReader.readAsArrayBuffer("test.txt")
+    var myArray = [];
+    myArray = fileReader.readAsArrayBuffer("test.txt")
 
   </script>
 
