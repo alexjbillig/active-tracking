@@ -5,26 +5,26 @@
 
   <script>
 
-  //  var temp;
-  //  i = 0;
-  //  getFile("test.json").then((data, i) => {
-  //    temp = data;
-  //  });
+    //  var temp;
+    //  i = 0;
+    //  getFile("test.json").then((data, i) => {
+    //    temp = data;
+    //  });
 
-  //  async function getFile(filepath) {
-  //    response = await fetch(filepath);
-  //    data = await response.json();
-  //    return data
-  //  }
+    //  async function getFile(filepath) {
+    //    response = await fetch(filepath);
+    //    data = await response.json();
+    //    return data
+    //  }
 
     var thisArray = [];
-    for (i = 0, i < 10, i++) {
-    response = fetch("test.json")
-    data = response.json()
-    thisArray = thisArray.concat(data)
-}
+    for (i = 0; i < 10; i++) {
+      response = fetch("test.json")
+      data = response.json()
+      thisArray = thisArray.concat(data)
+    }
 
-</script>
+  </script>
 
 </body>
 
