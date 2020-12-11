@@ -55,10 +55,6 @@
   currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
   document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
 
-  // initialise volumes
-  var volumes = [];
-  updateVolumes();
-
   // initialise trackSource, gainnode, playing
   var trackSource = [];
   var gainNode = [];
@@ -127,37 +123,13 @@
     currentDensityLevel = Math.min(currentDensityLevel + 1, maxDensityLevel);
     currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
     document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
-    updateVolumes();
-    if (playing == 1) {
-    updateGainNodes();
-    }
   }
 
   function decreaseDensityLevel() {
     currentDensityLevel = Math.max(currentDensityLevel -1, minDensityLevel);
     currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
     document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
-    updateVolumes();
-    if (playing == 1) {
-    updateGainNodes();
-    }
   }
-
-  function updateVolumes() {
-      for (i = 0; i < currentTracks; i++) {
-        volumes[i] = maxVolume/currentTracks
-      }
-      for (i = currentTracks; i < numTracks; i++){
-        volumes[i] = 0;
-      }
-    document.getElementById('currentTracksDisplay').innerHTML = currentTracks + " tracks, each with volume " + volumes[0];
-  };
-
-  function updateGainNodes() {
-    for (i = 0; i < numTracks; i++) {
-      gainNode[i].gain.value = volumes[i];
-    }
-  };
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
