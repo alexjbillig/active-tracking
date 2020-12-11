@@ -13,7 +13,7 @@
     const burstPlusSilenceDurSecs = 0.2;
     const sampleRate = 48000;
 
-    
+
 
     var allAudioData = [];
     for (i = 0; i < numLevels; i++) {
@@ -22,7 +22,7 @@
       for (j = 0; j < numBursts; j++) {
         burstString = (j + 1).toString();
         filename = audioFilenameStart +
-        levelString.padStart(4, '0') + "instance" + burstString.padStart(4, '0') +
+        levelString.padStart(4, '0') + "_instance" + burstString.padStart(4, '0') +
         audioFilenameEnd;
         getFile(filename).then((data) => {
           allAudioData[i] = allAudioData[i].concat(data)
