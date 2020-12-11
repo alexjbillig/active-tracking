@@ -133,7 +133,7 @@
   }
 
   function updateGainNodes() {
-    for (i = 0; i < numTracks; i++) {
+    for (i = 0; i < numLevels; i++) {
       gainNode[i].gain.value = 0;
     }
     gainNode[activeTrackIndex].gain.value = 1;
