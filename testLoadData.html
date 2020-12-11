@@ -25,10 +25,9 @@
         levelString.padStart(4, '0') + "_instance" + burstString.padStart(4, '0') +
         audioFilenameEnd;
         getFile(filename).then((data) => {
-          // allAudioData[i] = allAudioData[i].concat(data)
+          allAudioData[i] = allAudioData[i].concat(data)
           return data
         })
-        allAudioData[i] = allAudioData[i].concat(data)
       }
     }
 
