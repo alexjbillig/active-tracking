@@ -5,10 +5,14 @@
 
   <script>
 
-    
-    const response = await fetch("test.json");
-    const data = await response.json();
+    getFile("test.json")
 
+    async function getFile(filepath) {
+      const response = await fetch(filepath);
+      const data = await response.json();
+    }
+
+    
 
 
     //var FileReader = require('filereader')
