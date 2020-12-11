@@ -5,33 +5,13 @@
 
   <script>
 
-    getFile("test.json")
+    data = getFile("test.json")
 
     async function getFile(filepath) {
       const response = await fetch(filepath);
       const data = await response.json();
       return data
     }
-
-
-
-
-    //var FileReader = require('filereader')
-    //fileReader = new FileReader()
-
-    //var myArray = [];
-    //myArray = fileReader.readAsArrayBuffer("test.txt")
-
-    //var dataFile = new XMLHttpRequest()
-    //dataFile.open("GET", "https://alexjbillig.github.io/active-tracking/test.xml")
-    //dataFile.onreadystatechange = function() {
-    //		if (dataFile.readyState === 4) {  // Makes sure the document is ready to parse.
-    //	        if (dataFile.status === 200) {  // Makes sure it's found the file.
-    //        data = dataFile.responseText;
-    //lines = txtFile.responseText.split("\r\n"); // Will separate each line into an array
-    //	} //"\r\n"
-    //  }
-    //  }
 
   </script>
 
