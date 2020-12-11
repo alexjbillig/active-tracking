@@ -5,15 +5,12 @@
 
   <script>
 
-    var egg = 0;
     getFile("test.json")
 
     async function getFile(filepath) {
-      egg = 1;
       const response = await fetch(filepath);
-      egg = 2;
       const data = await response.json();
-      egg = 3;
+      return data
     }
 
 
@@ -25,16 +22,16 @@
     //var myArray = [];
     //myArray = fileReader.readAsArrayBuffer("test.txt")
 
-//var dataFile = new XMLHttpRequest()
-//dataFile.open("GET", "https://alexjbillig.github.io/active-tracking/test.xml")
-//dataFile.onreadystatechange = function() {
-  //		if (dataFile.readyState === 4) {  // Makes sure the document is ready to parse.
+    //var dataFile = new XMLHttpRequest()
+    //dataFile.open("GET", "https://alexjbillig.github.io/active-tracking/test.xml")
+    //dataFile.onreadystatechange = function() {
+    //		if (dataFile.readyState === 4) {  // Makes sure the document is ready to parse.
     //	        if (dataFile.status === 200) {  // Makes sure it's found the file.
-    	//        data = dataFile.responseText;
-      	        //lines = txtFile.responseText.split("\r\n"); // Will separate each line into an array
-    	//	} //"\r\n"
+    //        data = dataFile.responseText;
+    //lines = txtFile.responseText.split("\r\n"); // Will separate each line into an array
+    //	} //"\r\n"
     //  }
-  //  }
+    //  }
 
   </script>
 
