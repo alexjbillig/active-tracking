@@ -9,7 +9,7 @@
 
     async function getFile(filepath) {
       const response = await fetch(filepath);
-      const data = await response.json();
+      const data = await response.arrayBuffer();
       return data
     }
 
