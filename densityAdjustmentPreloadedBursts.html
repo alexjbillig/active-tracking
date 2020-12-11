@@ -28,21 +28,19 @@
   var audioList = [];
   for (i = 0; i < numLevels; i++) {
     levelString = (i + 1).toString();
-    for (j = 0; j < numBursts; j++)
-    burstString = (j + 1).toString();
-    audioList[i * numBursts + j] = audioFilenameStart + levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') + audioFilenameEnd;
+    for (j = 0; j < numBursts; j++) {
+      burstString = (j + 1).toString();
+      audioList[i * numBursts + j] = audioFilenameStart + levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') + audioFilenameEnd;
+    }
   }
 
   // get start button
   const startButton = document.querySelector('#startButton')
 
   // track, volume, and density settings
-  //const numTracks = audioList.length;
   const maxVolume = 1;
   const maxDensityLevel = 25;
   const minDensityLevel = 1;
-  //const maxDensity = numTracks;
-  //const minDensity = 0;
   const startDelaySecs = 3;
 
   // get audio context
@@ -133,10 +131,10 @@
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-}
+  }
 
   </script>
 
