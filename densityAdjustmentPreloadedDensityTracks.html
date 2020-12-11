@@ -135,7 +135,7 @@
   }
 
   function updateGainNodes() {
-    if (audioCtx.currentTime%burstPlusSilenceDurSecs < (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) {
+    if (audioCtx.currentTime%burstPlusSilenceDurSecs < (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs)) {
       adjustmentTime = Math.floor(audioCtx.currentTime / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs
     }
     else {
@@ -146,7 +146,6 @@
     }
     gainNode[activeTrackIndex].gain.setValueAtTime(1, adjustmentTime);
   };
-
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
