@@ -30,18 +30,14 @@
     levelString = (i + 1).toString();
     for (j = 0; j < numBursts; j++) {
       burstString = (j + 1).toString();
-      audioList[i * numBursts + j] = audioFilenameStart + levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') + audioFilenameEnd;
+      audioList[i * numBursts + j] = audioFilenameStart +
+      levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') +
+      audioFilenameEnd;
     }
   }
 
   // get start button
   const startButton = document.querySelector('#startButton')
-
-  // track, volume, and density settings
-  const maxVolume = 1;
-  const maxDensityLevel = 25;
-  const minDensityLevel = 1;
-  const startDelaySecs = 3;
 
   // get audio context
   const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -50,12 +46,10 @@
   // initialise density level
   const tracksByDensityLevel = [2, 3, 4, 5, 6, 7, 8, 10, 11, 14, 16, 19, 23, 27, 32, 39, 46, 54, 64, 76, 91, 108, 128, 151, 180];
   var currentDensityLevel = 13;
-  currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
   document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
 
-  // initialise trackSource, gainnode, playing
+  // initialise trackSource, playing
   var trackSource = [];
-  var gainNode = [];
   var playing = 0;
 
   // function for fetching the audio file and decode the data
@@ -75,21 +69,18 @@
   // create a buffer, plop in data, connect and play
   // should be able to set this to delay a bit so that function can be called
   // multiple times before sound needs to start
-  function playTrack(audioBuffer, i) {
-    trackSource[i] = audioCtx.createBufferSource();
-    trackSource[i].buffer = audioBuffer;
-    gainNode[i] = audioCtx.createGain();
-    gainNode[i].gain.value = volumes[i];
-    trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
+  function playTrack(audioBuffer) {
+    trackSource = audioCtx.createBufferSource();
+    trackSource.buffer = audioBuffer;
+    trackSource.connect(audioCtx.destination)
     if (playing == 0) {
-      startTime = audioCtx.currentTime + startDelaySecs;
       playing = 1;
       trackSource[i].onended = function () {
         playing = 0;
         audioCtx = null;
       }
     }
-    trackSource[i].start(startTime);
+    trackSource.start();
     return trackSource;
   }
 
@@ -99,32 +90,28 @@
       return;
     }
     audioCtx = new AudioContext();
-    // hide start button
-    // document.querySelector("#startButton").hidden = true;
     // iterate through audio files
-    var audioListShuffled = audioList
-    shuffleArray(audioListShuffled)
-    audioListShuffled.forEach((element, i) => {
+    audioList.forEach((element, i) => {
       // load file
       loadFile(element).then((track) => {
-        // check if context is in suspended state (autoplay policy)
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        // play track
-        playTrack(track, i);
       })
     })
+    // check if context is in suspended state (autoplay policy)
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    // play track
+    playTrack(track, i);
   });
 
   function increaseDensityLevel() {
-    currentDensityLevel = Math.min(currentDensityLevel + 1, maxDensityLevel);
+    currentDensityLevel = Math.min(currentDensityLevel + 1, numLevels);
     currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
     document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
   }
 
   function decreaseDensityLevel() {
-    currentDensityLevel = Math.max(currentDensityLevel -1, minDensityLevel);
+    currentDensityLevel = Math.max(currentDensityLevel -1, 1);
     currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
     document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
   }
