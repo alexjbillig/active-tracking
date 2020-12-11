@@ -5,13 +5,16 @@
 
   <script>
 
-    getFile("test.json").then((data) => {
-      var thisFileData = data;
+    var dataByLevelAndBurst = [];
+
+    i = 0;
+    getFile("test.json").then((data, i) => {
+      dataByLevelAndBurst[i] = data;
     });
 
     async function getFile(filepath) {
-      const response = await fetch(filepath);
-      const data = await response.json();
+      response = await fetch(filepath);
+      data = await response.json();
       return data
     }
 
