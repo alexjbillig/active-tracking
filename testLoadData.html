@@ -6,12 +6,26 @@
   <script>
 
 
-fileList = ["egg.json","test.json","test.json","test.json","test.json","test.json","test.json","test.json","test.json","test.json"]
-    var thisArray = [];
-    for (i = 0; i < 10; i++) {
-      getFile(fileList[i]).then((data) => {
-        thisArray = thisArray.concat(data)
-      })
+    const audioFilenameStart = "audio/burstStimuli/densityLevel";
+    const audioFilenameEnd = ".json"
+    const numLevels = 25;
+    const numBursts = 40;
+    const burstPlusSilenceDurSecs = 0.2;
+    const sampleRate = 48000;
+
+    var allAudioData = [];
+    for (i = 0; i < numLevels; i++) {
+      allAudioData[i] = [];
+      levelString = (i + 1).toString();
+      for (j = 0; j < numBursts; j++) {
+        burstString = (j + 1).toString();
+        filename = audioFilenameStart +
+        levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') +
+        audioFilenameEnd;
+        getFile(filename).then((data) => {
+          allAudioData[i] = allAudioData[i].concat(data)
+        })
+      }
     }
 
     async function getFile(filepath) {
