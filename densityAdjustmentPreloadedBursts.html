@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<title>Density adjustment</title>
+<link href="jsPsych-master/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+<body>
+
+  <button id="startButton">Start</button>
+  <button onclick="decreaseDensityLevel()">Decrease</button>
+  <button onclick="increaseDensityLevel()">Increase</button>
+
+  <p id="densityLevelDisplay"></p>
+
+  <script>
+
+  // 11th December 2020, A. Billig. This implementation preloads 40 previously
+  // generated instances of bursts at each of 25 density levels. 8-s sequence
+  // plays with a fixed density level until a click pulls in the new density for
+  // the remainder of the sequence (starting at the next available burst).
+  // In the final implementation, the 40 loaded sequences per density level
+  // will be randomly selected from a greater pool. For each density level, the
+  // selected bursts will be chained together into a single array.
+
+  // list of audio files
+  const audioFilenameStart = "audio/burstStimuli/densityLevel";
+  const audioFilenameEnd = ".flac"
+  const numLevels = 25;
+  const numBursts = 40;
+  var audioList = [];
+  for (i = 0; i < numLevels; i++) {
+    levelString = (i + 1).toString();
+    for (j = 0; j < numBursts; j++)
+    burstString = (j + 1).toString();
+    audioList[i] = audioFilenameStart + levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') + audioFilenameEnd;
+  }
+
+  // get start button
+  const startButton = document.querySelector('#startButton')
+
+  // track, volume, and density settings
+  //const numTracks = audioList.length;
+  const maxVolume = 1;
+  const maxDensityLevel = 25;
+  const minDensityLevel = 1;
+  //const maxDensity = numTracks;
+  //const minDensity = 0;
+  const startDelaySecs = 3;
+
+  // get audio context
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  let audioCtx = null;
+
+  // initialise density level
+  const tracksByDensityLevel = [2, 3, 4, 5, 6, 7, 8, 10, 11, 14, 16, 19, 23, 27, 32, 39, 46, 54, 64, 76, 91, 108, 128, 151, 180];
+  var currentDensityLevel = 13;
+  currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
+  document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
+
+  // initialise volumes
+  var volumes = [];
+  updateVolumes();
+
+  // initialise trackSource, gainnode, playing
+  var trackSource = [];
+  var gainNode = [];
+  var playing = 0;
+
+  // function for fetching the audio file and decode the data
+  async function getFile(filepath) {
+    const response = await fetch(filepath);
+    const arrayBuffer = await response.arrayBuffer();
+    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+    return audioBuffer;
+  }
+
+  // function to call each file and return an array of decoded files
+  async function loadFile(filePath) {
+    const track = await getFile(filePath);
+    return track;
+  }
+
+  // create a buffer, plop in data, connect and play
+  // should be able to set this to delay a bit so that function can be called
+  // multiple times before sound needs to start
+  function playTrack(audioBuffer, i) {
+    trackSource[i] = audioCtx.createBufferSource();
+    trackSource[i].buffer = audioBuffer;
+    gainNode[i] = audioCtx.createGain();
+    gainNode[i].gain.value = volumes[i];
+    trackSource[i].connect(gainNode[i]).connect(audioCtx.destination)
+    if (playing == 0) {
+      startTime = audioCtx.currentTime + startDelaySecs;
+      playing = 1;
+      trackSource[i].onended = function () {
+        playing = 0;
+        audioCtx = null;
+      }
+    }
+    trackSource[i].start(startTime);
+    return trackSource;
+  }
+
+  // start button
+  startButton.addEventListener('click', () => {
+    if (audioCtx != null) {
+      return;
+    }
+    audioCtx = new AudioContext();
+    // hide start button
+    // document.querySelector("#startButton").hidden = true;
+    // iterate through audio files
+    var audioListShuffled = audioList
+    shuffleArray(audioListShuffled)
+    audioListShuffled.forEach((element, i) => {
+      // load file
+      loadFile(element).then((track) => {
+        // check if context is in suspended state (autoplay policy)
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        // play track
+        playTrack(track, i);
+      })
+    })
+  });
+
+  function increaseDensityLevel() {
+    currentDensityLevel = Math.min(currentDensityLevel + 1, maxDensityLevel);
+    currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
+    document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
+    updateVolumes();
+    if (playing == 1) {
+    updateGainNodes();
+    }
+  }
+
+  function decreaseDensityLevel() {
+    currentDensityLevel = Math.max(currentDensityLevel -1, minDensityLevel);
+    currentTracks = tracksByDensityLevel[currentDensityLevel - 1];
+    document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
+    updateVolumes();
+    if (playing == 1) {
+    updateGainNodes();
+    }
+  }
+
+  function updateVolumes() {
+      for (i = 0; i < currentTracks; i++) {
+        volumes[i] = maxVolume/currentTracks
+      }
+      for (i = currentTracks; i < numTracks; i++){
+        volumes[i] = 0;
+      }
+    document.getElementById('currentTracksDisplay').innerHTML = currentTracks + " tracks, each with volume " + volumes[0];
+  };
+
+  function updateGainNodes() {
+    for (i = 0; i < numTracks; i++) {
+      gainNode[i].gain.value = volumes[i];
+    }
+  };
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+  </script>
+
+</body>
+</html>
