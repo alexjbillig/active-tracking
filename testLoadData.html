@@ -13,6 +13,11 @@
     const burstPlusSilenceDurSecs = 0.2;
     const sampleRate = 48000;
 
+    // problem is that all the loops run before any of the data has loaded, so
+    // it all accumulates in thisLevelAudioData. want to accumlate it all before
+    // splitting into different tracks, so shouldn't be letting the code run on.
+    // Also, the json files are many times bigger than the flac files, and the
+    // loading process is probably unacceptably long
 
 
     var allAudioData = [];
