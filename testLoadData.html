@@ -5,7 +5,9 @@
 
   <script>
 
-    const thisFileData = getFile("test.json")
+    getFile("test.json").then((data) => {
+      var thisFileData = data;
+    }
 
     async function getFile(filepath) {
       const response = await fetch(filepath);
