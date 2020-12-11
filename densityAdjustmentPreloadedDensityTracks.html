@@ -141,6 +141,7 @@
     else {
       adjustmentTime = Math.floor(audioCtx.currentTime / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs
     }
+    console.log(audioCtx.currentTime + " " + adjustmentTime)
     for (i = 0; i < numLevels; i++) {
       gainNode[i].gain.setValueAtTime(0, adjustmentTime);
     }
