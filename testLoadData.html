@@ -5,11 +5,11 @@
 
   <script>
 
-    var dataByLevelAndBurst = [];
+    var temp;
 
     i = 0;
     getFile("test.json").then((data, i) => {
-      dataByLevelAndBurst[i] = data;
+      temp = data;
     });
 
     async function getFile(filepath) {
