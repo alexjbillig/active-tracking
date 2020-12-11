@@ -30,7 +30,7 @@
     levelString = (i + 1).toString();
     for (j = 0; j < numBursts; j++)
     burstString = (j + 1).toString();
-    audioList[i] = audioFilenameStart + levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') + audioFilenameEnd;
+    audioList[i * numBursts + j] = audioFilenameStart + levelString.padStart(3, '0') + "instance" + burstString.padStart(4, '0') + audioFilenameEnd;
   }
 
   // get start button
