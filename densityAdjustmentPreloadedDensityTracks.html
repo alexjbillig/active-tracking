@@ -26,6 +26,8 @@
   const sampleRate = 48000;
   const instance = 1; // This will change in due course, with one available per trial
   const startDelaySecs = 3;
+  const bestAdjustTimeReBurstStartSecs = .195;
+  const gainAdjustBufferSecs = .010; // If less than this remaining until next nominal gain adjustment time, skip to the next one
 
   // list of audio files
   var audioList = [];
@@ -133,11 +135,18 @@
   }
 
   function updateGainNodes() {
-    for (i = 0; i < numLevels; i++) {
-      gainNode[i].gain.value = 0;
+    if (audioCtx.currentTime%burstPlusSilenceDurSecs < (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) {
+      adjustmentTime = Math.floor(audioCtx.currentTime / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs
     }
-    gainNode[activeTrackIndex].gain.value = 1;
+    else {
+      adjustmentTime = Math.floor(audioCtx.currentTime / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs
+    }
+    for (i = 0; i < numLevels; i++) {
+      gainNode[i].gain.setValueAtTime(0, adjustmentTime);
+    }
+    gainNode[activeTrackIndex].gain.setValueAtTime(1, adjustmentTime);
   };
+
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
