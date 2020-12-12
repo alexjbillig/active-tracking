@@ -119,9 +119,7 @@
         playTrack(track, i);
       })
     })
-    // while (playing == 0){
-    // }
-    window.setTimeout(monitorAdjustments(), (startDelaySecs - burstPlusSilenceDurSecs
+    setTimeout(monitorAdjustments, (startDelaySecs - burstPlusSilenceDurSecs
       + bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) * 1000)
       // Because monitorAdjustments starts with a delay lasting for
       // burstPlusSilenceDurSecs, and because we want to monitor
