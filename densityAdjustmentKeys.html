@@ -137,11 +137,7 @@
       // burst
   });
 
-  // Check for new button presses/releases each burst
-  //function monitorAdjustments() {
-  //  setInterval(assessLatestAdjustments(), 200)
-  //}
-
+  // Check for and act on new button presses/releases each burst
   function monitorAdjustments() {
     var burstCount = 0;
     var interval = setInterval(function(){
@@ -171,62 +167,25 @@
       if (burstCount == numBursts) {
         clearInterval(interval)
       }
-
     }, burstPlusSilenceDurSecs * 1000);
   }
 
-  // Retrieve button presses/releases since last check, determine whether to
-  // adjust densityLevel
-  // function assessLatestAdjustments() {
-  //   console.log("assess")
-  //   var snapshotLog = keyLog
-  //   var lastLog = snapshotLog[snapshotLog.length - 1]
-  //   switch (lastLog) {
-  //     case 1: //B pressed
-  //     decreaseDensityLevel()
-  //     keyLog.splice(0, snapshotLog.length - 1)
-  //     break
-  //     case 2: //B released
-  //     decreaseDensityLevel()
-  //     keyLog.splice(0, snapshotLog.length)
-  //     break
-  //     case 3: //N pressed
-  //     increaseDensityLevel()
-  //     keyLog.splice(0, snapshotLog.length - 1)
-  //     break
-  //     case 4: //N released
-  //     increaseDensityLevel()
-  //     keyLog.splice(0, snapshotLog.length)
-  //     break
-  //     default:
-  //   }
-  // }
-
-  // Log button presses/releases (might be more easily parsed with numbers,
-  // perhaps store burst-specific)
+  // Log button presses/releases
   document.addEventListener('keydown', logKeyDown);
   document.addEventListener('keyup', logKeyUp);
   function logKeyDown(e) {
     if (e.code == "KeyB") {
-      //keyLog += "Bd"
-      //keyLog += 1
       keyLog.push(1)
     }
     if (e.code == "KeyN") {
-      //keyLog += "Nd"
-      //keyLog += 2
-      keyLog.push(2)
+      keyLog.push(3)
     }
   }
   function logKeyUp(e) {
     if (e.code == "KeyB") {
-      //keyLog += "Bu"
-      //keyLog += 3
-      keyLog.push(3)
+      keyLog.push(2)
     }
     if (e.code == "KeyN") {
-      //keyLog += "Nu"
-      //keyLog += 4
       keyLog.push(4)
     }
   }
