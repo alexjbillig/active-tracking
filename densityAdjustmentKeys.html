@@ -209,21 +209,25 @@
   function logKeyDown(e) {
     if (e.code == "KeyB") {
       //keyLog += "Bd"
-      keyLog += 1
+      //keyLog += 1
+      keyLog.push(1)
     }
     if (e.code == "KeyN") {
       //keyLog += "Nd"
-      keyLog += 2
+      //keyLog += 2
+      keyLog.push(2)
     }
   }
   function logKeyUp(e) {
     if (e.code == "KeyB") {
       //keyLog += "Bu"
-      keyLog += 3
+      //keyLog += 3
+      keyLog.push(3)
     }
     if (e.code == "KeyN") {
       //keyLog += "Nu"
-      keyLog += 4
+      //keyLog += 4
+      keyLog.push(4)
     }
   }
 
