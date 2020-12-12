@@ -131,36 +131,63 @@
   });
 
   // Check for new button presses/releases each burst
+  //function monitorAdjustments() {
+  //  setInterval(assessLatestAdjustments(), 200)
+  //}
+
   function monitorAdjustments() {
-    setInterval(assessLatestAdjustments(), 200)
+    setInterval(function(){
+      console.log("assess")
+      var snapshotLog = keyLog
+      var lastLog = snapshotLog[snapshotLog.length - 1]
+      switch (lastLog) {
+        case 1: //B pressed
+        decreaseDensityLevel()
+        keyLog.splice(0, snapshotLog.length - 1)
+        break
+        case 2: //B released
+        decreaseDensityLevel()
+        keyLog.splice(0, snapshotLog.length)
+        break
+        case 3: //N pressed
+        increaseDensityLevel()
+        keyLog.splice(0, snapshotLog.length - 1)
+        break
+        case 4: //N released
+        increaseDensityLevel()
+        keyLog.splice(0, snapshotLog.length)
+        break
+        default:
+      }
+    }, 200);
   }
 
   // Retrieve button presses/releases since last check, determine whether to
   // adjust densityLevel
-  function assessLatestAdjustments() {
-    console.log("assess")
-    var snapshotLog = keyLog
-    var lastLog = snapshotLog[snapshotLog.length - 1]
-    switch (lastLog) {
-      case 1: //B pressed
-      decreaseDensityLevel()
-      keyLog.splice(0, snapshotLog.length - 1)
-      break
-      case 2: //B released
-      decreaseDensityLevel()
-      keyLog.splice(0, snapshotLog.length)
-      break
-      case 3: //N pressed
-      increaseDensityLevel()
-      keyLog.splice(0, snapshotLog.length - 1)
-      break
-      case 4: //N released
-      increaseDensityLevel()
-      keyLog.splice(0, snapshotLog.length)
-      break
-      default:
-    }
-  }
+  // function assessLatestAdjustments() {
+  //   console.log("assess")
+  //   var snapshotLog = keyLog
+  //   var lastLog = snapshotLog[snapshotLog.length - 1]
+  //   switch (lastLog) {
+  //     case 1: //B pressed
+  //     decreaseDensityLevel()
+  //     keyLog.splice(0, snapshotLog.length - 1)
+  //     break
+  //     case 2: //B released
+  //     decreaseDensityLevel()
+  //     keyLog.splice(0, snapshotLog.length)
+  //     break
+  //     case 3: //N pressed
+  //     increaseDensityLevel()
+  //     keyLog.splice(0, snapshotLog.length - 1)
+  //     break
+  //     case 4: //N released
+  //     increaseDensityLevel()
+  //     keyLog.splice(0, snapshotLog.length)
+  //     break
+  //     default:
+  //   }
+  // }
 
   // Log button presses/releases (might be more easily parsed with numbers,
   // perhaps store burst-specific)
