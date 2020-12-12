@@ -88,8 +88,10 @@
     if (playing == 0) {
       startTime = audioCtx.currentTime + startDelaySecs;
       playing = 1;
+      console.log("Now playing")
       trackSource[i].onended = function () {
         playing = 0;
+        console.log("Stopped playing")
         audioCtx = null;
       }
     }
