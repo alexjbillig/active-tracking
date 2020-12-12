@@ -127,39 +127,64 @@
     setTimeout(monitorAdjustments(), startDelaySecs * 1000)
   });
 
-// Check for new button presses/releases each burst
+  // Check for new button presses/releases each burst
   function monitorAdjustments() {
-    console.log("checking")
-    // setInterval(function, 200)
+    setInterval(assessLatestAdjustments(), 200)
   }
 
-// Log button presses/releases (might be more easily parsed with numbers,
-// perhaps store burst-specific)
-var keyLog = [];
-document.addEventListener('keydown', logKeyDown);
-document.addEventListener('keyup', logKeyUp);
-function logKeyDown(e) {
-  if (e.code == "KeyB") {
-    //keyLog += "Bd"
-    keyLog += 1
+  // Retrieve button presses/releases since last check, determine whether to
+  // adjust densityLevel
+  function assessLatestAdjustments() {
+    var snapshotLog = keyLog
+    var lastLog = snapshotLog[snapshotLog.length - 1]
+    switch (lastLog) {
+      case 1: //B pressed
+      decreaseDensityLevel()
+      keyLog.splice(0, snapshotLog.length - 1)
+      break
+      case 2: //B released
+      decreaseDensityLevel()
+      keyLog.splice(0, snapshotLog.length)
+      break
+      case 3: //N pressed
+      increaseDensityLevel()
+      keyLog.splice(0, snapshotLog.length - 1)
+      break
+      case 4: //N released
+      increaseDensityLevel()
+      keyLog.splice(0, snapshotLog.length)
+      break
+      default:
+    }
   }
-  if (e.code == "KeyN") {
-    //keyLog += "Nd"
-    keyLog += 2
-  }
-}
-function logKeyUp(e) {
-  if (e.code == "KeyB") {
-    //keyLog += "Bu"
-    keyLog += 3
-  }
-  if (e.code == "KeyN") {
-    //keyLog += "Nu"
-    keyLog += 4
-  }
-}
 
-// Calculate and display new density in response to 'Increase' click
+  // Log button presses/releases (might be more easily parsed with numbers,
+  // perhaps store burst-specific)
+  var keyLog = [];
+  document.addEventListener('keydown', logKeyDown);
+  document.addEventListener('keyup', logKeyUp);
+  function logKeyDown(e) {
+    if (e.code == "KeyB") {
+      //keyLog += "Bd"
+      keyLog += 1
+    }
+    if (e.code == "KeyN") {
+      //keyLog += "Nd"
+      keyLog += 2
+    }
+  }
+  function logKeyUp(e) {
+    if (e.code == "KeyB") {
+      //keyLog += "Bu"
+      keyLog += 3
+    }
+    if (e.code == "KeyN") {
+      //keyLog += "Nu"
+      keyLog += 4
+    }
+  }
+
+  // Calculate and display new density in response to 'Increase' click
   function increaseDensityLevel() {
     currentDensityLevel = Math.min(currentDensityLevel + 1, numLevels);
     activeTrackIndex = currentDensityLevel - 1;
@@ -169,7 +194,7 @@ function logKeyUp(e) {
     }
   }
 
-// Calculate and display new density in response to 'Decrease' click
+  // Calculate and display new density in response to 'Decrease' click
   function decreaseDensityLevel() {
     currentDensityLevel = Math.max(currentDensityLevel -1, 1);
     activeTrackIndex = currentDensityLevel - 1;
@@ -179,7 +204,7 @@ function logKeyUp(e) {
     }
   }
 
-// Update gain nodes to match new density
+  // Update gain nodes to match new density
   function updateGainNodes() {
     if (audioCtx.currentTime%burstPlusSilenceDurSecs < (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs)) {
       adjustmentTime = Math.floor((audioCtx.currentTime - startTime) / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs + startTime
@@ -193,7 +218,7 @@ function logKeyUp(e) {
     gainNode[activeTrackIndex].gain.setValueAtTime(1, adjustmentTime);
   };
 
-// Not using yet, but randomly shuffles elements of an array
+  // Not using yet, but randomly shuffles elements of an array
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
