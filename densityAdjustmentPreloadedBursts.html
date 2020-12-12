@@ -20,11 +20,15 @@
   // will be randomly selected from a greater pool. For each density level, the
   // selected bursts will be chained together into a single array.
 
-  // list of audio files
+
   const audioFilenameStart = "audio/burstStimuli/densityLevel";
   const audioFilenameEnd = ".flac"
   const numLevels = 25;
   const numBursts = 40;
+  const burstPlusSilenceDurSecs = 0.2;
+  const sampleRate = 48000;
+
+  // list of audio files
   var audioList = [];
   for (i = 0; i < numLevels; i++) {
     levelString = (i + 1).toString();

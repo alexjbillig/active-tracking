@@ -127,6 +127,33 @@
     setTimeout(monitorAdjustments(), startDelaySecs * 1000)
   });
 
+// Check for new button presses/releases each burst
+  function monitorAdjustments() {
+    console.log("checking")
+  }
+
+// Log button presses/releases (might be more easily parsed with numbers,
+// perhaps store burst-specific)
+var keyLog = [];
+document.addEventListener('keydown', logKeyDown);
+document.addEventListener('keyup', logKeyUp;
+function logKeyDown(e) {
+  if (e.code == "KeyB") {
+    keyLog += "Bd"
+  }
+  elseif (e.code == "KeyN") {
+    keyLog += "Nd"
+  }
+}
+function logKeyUp(e) {
+  if (e.code == "KeyB") {
+    keyLog += "Bu"
+  }
+  elseif (e.code == "KeyN") {
+    keyLog += "Nu"
+  }
+}
+
 // Calculate and display new density in response to 'Increase' click
   function increaseDensityLevel() {
     currentDensityLevel = Math.min(currentDensityLevel + 1, numLevels);
