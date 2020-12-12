@@ -121,9 +121,8 @@
     })
     // while (playing == 0){
     // }
-    // setTimeout(monitorAdjustments(), (startDelaySecs - burstPlusSilenceDurSecs
-    //   + bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) * 1000)
-      setTimeout(monitorAdjustments(), 5000)
+    window.setTimeout(monitorAdjustments(), (startDelaySecs - burstPlusSilenceDurSecs
+      + bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) * 1000)
       // Because monitorAdjustments starts with a delay lasting for
       // burstPlusSilenceDurSecs, and because we want to monitor
       // (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) after the start
