@@ -5,8 +5,6 @@
 <body>
 
   <button id="startButton">Start</button>
-  <button onclick="decreaseDensityLevel()">Decrease</button>
-  <button onclick="increaseDensityLevel()">Increase</button>
 
   <p id="densityLevelDisplay"></p>
   <script>
@@ -14,6 +12,7 @@
   // 11th December 2020, A. Billig. One track per density level. Adjustments to
   // density level switches which track has full gain (all others set to zero).
   // Gain changes happen at the next 10-ms silent period between bursts.
+  // B = beepier, N = noisiser
 
   // To do: Embed into a trial with target density to match; create other trial
   // types; integrate into an experiment
@@ -48,7 +47,7 @@
 
   // Initialise and display density level
   var currentDensityLevel = 13;
-  activeTrackIndex = currentDensityLevel - 1;
+  var activeTrackIndex = currentDensityLevel - 1;
   document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
 
   // Initialise trackSource, gainNode, keyLog, playing
@@ -89,10 +88,20 @@
       startTime = audioCtx.currentTime + startDelaySecs;
       playing = 1;
       // console.log("Now playing")
+      // On ending
       trackSource[i].onended = function () {
-        playing = 0;
         // console.log("Stopped playing")
+        playing = 0;
         audioCtx = null;
+        document.querySelector("#startButton").hidden = false;
+        currentDensityLevel = 13;
+        activeTrackIndex = currentDensityLevel - 1;
+        document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
+        trackSource = [];
+        gainNode = [];
+        keyLog = [];
+        snapshotLog = [];
+        lastLog = [];
       }
     }
     trackSource[i].start(startTime);
@@ -106,7 +115,7 @@
     }
     audioCtx = new AudioContext();
     // hide start button
-    // document.querySelector("#startButton").hidden = true;
+    document.querySelector("#startButton").hidden = true;
     // iterate through audio files
     audioList.forEach((element, i) => {
       // load file
