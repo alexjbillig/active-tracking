@@ -140,18 +140,22 @@ document.addEventListener('keydown', logKeyDown);
 document.addEventListener('keyup', logKeyUp);
 function logKeyDown(e) {
   if (e.code == "KeyB") {
-    keyLog += "Bd"
+    //keyLog += "Bd"
+    keyLog += 1
   }
   if (e.code == "KeyN") {
-    keyLog += "Nd"
+    //keyLog += "Nd"
+    keyLog += 2
   }
 }
 function logKeyUp(e) {
   if (e.code == "KeyB") {
-    keyLog += "Bu"
+    //keyLog += "Bu"
+    keyLog += 3
   }
   if (e.code == "KeyN") {
-    keyLog += "Nu"
+    //keyLog += "Nu"
+    keyLog += 4
   }
 }
 
