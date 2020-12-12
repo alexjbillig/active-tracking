@@ -15,19 +15,8 @@
   // density level switches which track has full gain (all others set to zero).
   // Gain changes happen at the next 10-ms silent period between bursts.
 
-  // To do: Allow keyboard presses to change density; embed into a trial with
-  // target density to match; create other trial types; integrate into an experiment
-
-  // Use window.onkeyup window.onkeydown e.g. https://stackoverflow.com/questions/1828613/check-if-a-key-is-down
-  // But don't want more than one density adjustment per burst
-  // Have an array tracking whether an adjustment has been recorded during each
-  // burst - this adjustment could come from a new key press or a continued hold
-  // One option would be to assume that a key, once down, remains down until a
-  // keyup message. So pre-emptively schedule gain adjustments (and densityLevel
-  // adjustments, if possible), which will then get reversed if there is a keyup
-  // before they kick in.
-
-  // Look at implementation in MATLAB
+  // To do: Embed into a trial with target density to match; create other trial
+  // types; integrate into an experiment
 
   // Set constants
   const audioFilenameStart = "audio/fixedDensityLevelFullStimuli/densityLevel";
