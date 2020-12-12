@@ -117,6 +117,8 @@
         playTrack(track, i);
       })
     })
+    while (playing == 0){
+    }
     setTimeout(monitorAdjustments(), (startDelaySecs - burstPlusSilenceDurSecs
       + bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) * 1000)
       // Because monitorAdjustments starts with a delay lasting for
