@@ -33,11 +33,12 @@
   const audioFilenameStart = "audio/fixedDensityLevelFullStimuli/densityLevel";
   const audioFilenameEnd = ".flac"
   const numLevels = 25;
-  const burstPlusSilenceDurSecs = 0.2;
+  const numBursts = 40;
+  const burstPlusSilenceDurSecs = .2;
   const instance = 1; // This will change in due course, with one available per trial
   const startDelaySecs = 1; // To make sure all tracks loaded before any sounds
   const bestAdjustTimeReBurstStartSecs = .195; // To adjust gain during in intra-burst silence
-  const gainAdjustBufferSecs = .010; // If less than this remaining until next nominal gain adjustment time, skip to the next one
+  const gainAdjustBufferSecs = .01; // If less than this remaining until next nominal gain adjustment time, skip to the next one
 
   // List of audio files
   var audioList = [];
@@ -127,7 +128,13 @@
         playTrack(track, i);
       })
     })
-    setTimeout(monitorAdjustments(), startDelaySecs * 1000)
+    setTimeout(monitorAdjustments(), (startDelaySecs - burstPlusSilenceDurSecs
+      + bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) * 1000)
+      // Because monitorAdjustments starts with a delay lasting for
+      // burstPlusSilenceDurSecs, and because we want to monitor
+      // (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs) after the start
+      // of the burst, we call monitorAdjustments a little before the first
+      // burst
   });
 
   // Check for new button presses/releases each burst
@@ -136,10 +143,12 @@
   //}
 
   function monitorAdjustments() {
-    setInterval(function(){
-      console.log("assess")
-      var snapshotLog = keyLog
-      var lastLog = snapshotLog[snapshotLog.length - 1]
+    var burstCount = 0;
+    var interval = setInterval(function(){
+      burstCount++
+      snapshotLog = keyLog
+      lastLog = snapshotLog[snapshotLog.length - 1]
+      console.log(burstCount + " " + snapshotLog + " " + lastLog)
       switch (lastLog) {
         case 1: //B pressed
         decreaseDensityLevel()
@@ -159,7 +168,11 @@
         break
         default:
       }
-    }, 200);
+      if (burstCount == numBursts) {
+        clearInterval(interval)
+      }
+
+    }, burstPlusSilenceDurSecs * 1000);
   }
 
   // Retrieve button presses/releases since last check, determine whether to
