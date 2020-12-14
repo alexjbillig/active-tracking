@@ -217,7 +217,8 @@
 
     // Update gain nodes to match new density
     function updateGainNodes() {
-      if (audioCtx.currentTime%burstPlusSilenceDurSecs < (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs)) {
+      // missing a '- startTime' ?
+      if ((audioCtx.currentTime - startTime)%burstPlusSilenceDurSecs < (bestAdjustTimeReBurstStartSecs - gainAdjustBufferSecs)) {
         adjustmentTime = Math.floor((audioCtx.currentTime - startTime) / burstPlusSilenceDurSecs) * burstPlusSilenceDurSecs + bestAdjustTimeReBurstStartSecs + startTime
       }
       else {
