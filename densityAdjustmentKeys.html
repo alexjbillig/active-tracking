@@ -49,7 +49,7 @@
   var currentDensityLevel = 13;
   var activeTrackIndex = currentDensityLevel - 1;
   // document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
-  document.getElementById('densityLevelDisplay').innerHTML = "Use B to make sounds beepier, and N to make sounds noisier.\nClick Start to begin";
+  document.getElementById('densityLevelDisplay').innerHTML = "Use B to make sounds beepier, and N to make sounds noisier.";
 
   // Initialise trackSource, gainNode, keyLog, playing
   var trackSource = [];
@@ -97,7 +97,7 @@
         document.querySelector("#startButton").hidden = false;
         currentDensityLevel = 13;
         activeTrackIndex = currentDensityLevel - 1;
-        document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
+        //document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
         trackSource = [];
         gainNode = [];
       }
@@ -200,7 +200,7 @@
     function increaseDensityLevel() {
       currentDensityLevel = Math.min(currentDensityLevel + 1, numLevels);
       activeTrackIndex = currentDensityLevel - 1;
-      document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
+      //document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
       if (playing == 1) {
         updateGainNodes();
       }
@@ -210,7 +210,7 @@
     function decreaseDensityLevel() {
       currentDensityLevel = Math.max(currentDensityLevel -1, 1);
       activeTrackIndex = currentDensityLevel - 1;
-      document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
+      //document.getElementById('densityLevelDisplay').innerHTML = "Density level: " + currentDensityLevel;
       if (playing == 1) {
         updateGainNodes();
       }
